@@ -1,0 +1,17 @@
+<h1>Update member</h1>
+
+<form action="Updaterecord/{{ taskinsert.id }}" method="post">
+{% csrf_token %}
+UserName:
+<input name="Username" value="{{ taskinsert.UserName }}">
+<br>
+Task:
+<input name="Task" value="{{ taskinsert.Task }}"><br>
+Status:
+<select name="Status" id="cars">
+    <option value="Pending" selected>Pending</option>
+    <option value="Inprogress">Inprogress</option>
+    <option value="Completed">Completed</option>
+  </select>
+<input type="Submit" value="Submit">
+</form>
