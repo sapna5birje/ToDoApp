@@ -1,3 +1,7 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 .inputs {
     padding: 2rem 0 2rem 0;
@@ -60,14 +64,14 @@
 
 
 
-
+<script>$('#date').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();</script>
 
 <form action="Add/" method="post">
     {% csrf_token %}
     <section class="inputs">
                 <input type="text" placeholder="Enter any Task" name="TaskName">
                 <br><br>
-                <input type="date" placeholder="Date" name="Date"><br>
+                <input type="date" id='date' placeholder="Date" name="Date"><br>
                 <input type="submit" value="submit" name="submit">
             
             </section>
@@ -75,6 +79,7 @@
 
 
 <div class="errormessage">{{error}}</div>
+<br>
 
 
 

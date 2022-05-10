@@ -26,12 +26,17 @@ def Login(request):
 		return render(request, 'templates.html',context)
 
 def afterlogin(request):
+		error=request.GET.getlist('error')
+		errmsg=""
+		if error:
+			errmsg="please enter the task before submit"
 
 		username=request.GET.getlist('item')
 		print(username[0])
 		taskinsert=ListTask.objects.filter(UserName=username[0])
 		context={
-		'task':taskinsert
+		'task':taskinsert,
+		'error':errmsg
 		}
 		return render(request, 'templates.html',context)
 
@@ -57,14 +62,16 @@ def register(request):
 def Add(request):
 	taskname=request.POST.get('TaskName')
 	date=request.POST.get('Date')
-	if not taskname:
-		return redirect(('/login') + '?item=error')
-		
+	
 	username=None
 	if request.user.is_authenticated:
 		username = request.user.username
-	print(username)
-	Taskinsert=ListTask(UserName=username,Task=taskname,DueDate=date)
+	if not taskname:
+		return redirect(('/afterlogin') + '?error=error'+'&'+'item='+username)
+	if date=='':
+		Taskinsert=ListTask(UserName=username,Task=taskname)
+	else:
+		Taskinsert=ListTask(UserName=username,Task=taskname,DueDate=date)
 	Taskinsert.save()
 	
 	return redirect(('/afterlogin')+ '?item='+username)
